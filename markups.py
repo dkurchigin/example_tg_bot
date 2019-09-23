@@ -1,27 +1,14 @@
 from telebot import types
+from models import get_categories
 
 
 def get_category_markups():
     category_markup = types.ReplyKeyboardMarkup(row_width=1)
+    all_categories = get_categories()
 
-    clothes = types.KeyboardButton('Одежда')
-    underwear = types.KeyboardButton('Бельё')
-    stationery = types.KeyboardButton('Канцтовары')
-    consumer_electronic = types.KeyboardButton('Бытовая электроника')
-    smartphones = types.KeyboardButton('Смартфоны')
-    accessories = types.KeyboardButton('Аксессуары')
-    watches = types.KeyboardButton('Часы')
-    jewelry = types.KeyboardButton('Ювелирные изделия')
-    toys = types.KeyboardButton('Игрушки')
-    car_accessories = types.KeyboardButton('Автомобильные аксессуары')
-    in_car_electronics = types.KeyboardButton('Автомобильная электроника')
-    perfumes = types.KeyboardButton('Парфюмерия и косметика')
-    crockery = types.KeyboardButton('Посуда')
-    supplies = types.KeyboardButton('Строительные материалы')
-    furniture = types.KeyboardButton('Мебель')
-
-    category_markup.add(clothes, underwear, stationery, consumer_electronic, smartphones, accessories, watches,
-                        jewelry, toys, car_accessories, in_car_electronics, perfumes, crockery, supplies, furniture)
+    for one_category in all_categories:
+        button = types.KeyboardButton(one_category.name)
+        category_markup.add(button)
 
     return category_markup
 
